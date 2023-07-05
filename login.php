@@ -15,7 +15,7 @@ if ($con->connect_error) {
         $data = $stmt_result->fetch_assoc();
         if ($data['password'] == $password) {
             if ($username == "admin") {
-                header("Location: admin.html");
+                header("Location: admin.php");
                 exit();
             } else {
                 header("Location: order.html");
@@ -28,5 +28,5 @@ if ($con->connect_error) {
         $error_message="Invalid Username or Password";
     }
 }
-include('login.html');
+include('index.html');
 ?>
