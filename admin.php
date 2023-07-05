@@ -43,7 +43,7 @@ $totalBoxCount = $customer1BoxCount + $customer2BoxCount;
 <html>
 <head>
     <title>Admin Page</title>
-    <link rel="stylesheet" type="text/css" href="Style/styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <div class="table-container">
