@@ -20,14 +20,12 @@
         }
 
         echo "</table>";
+    }
      else {
         echo "No data found.";
     }
     $con->close();
-} else {
-    echo "You do not have access to view this data.";
-}
-
+ 
 function sumQuantity($quantity) {
     return $quantity; // Replace with your calculation logic
 }

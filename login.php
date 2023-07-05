@@ -1,26 +1,32 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "auth_db";
+$username = $_POST['username'];
+$password = $_POST['password'];
+$error_message = "";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-
-$query = "SELECT * FROM auth WHERE username = '$username' AND password = '$password'";
-$result = $conn->query($query);
-
-if ($result->num_rows > 0) {
-    // Valid login
-    echo "Login successful!";
+$con = new mysqli("localhost", "root", "", "auth_db");
+if ($con->connect_error) {
+    die('Connection failed: ' . $con->connect_error);
 } else {
-    // Invalid login
-    echo "Invalid username or password.";
+    $stmt = $con->prepare("SELECT * FROM auth WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt_result = $stmt->get_result();
+    if ($stmt_result->num_rows > 0) {
+        $data = $stmt_result->fetch_assoc();
+        if ($data['password'] == $password) {
+            if ($username == "admin") {
+                header("Location: admin.html");
+                exit();
+            } else {
+                header("Location: order.html");
+                exit();
+            }
+        } else {
+            $error_message="Invalid Username or Password";
+        }
+    } else {
+        $error_message="Invalid Username or Password";
+    }
 }
-
-$conn->close();
+include('login.html');
 ?>
